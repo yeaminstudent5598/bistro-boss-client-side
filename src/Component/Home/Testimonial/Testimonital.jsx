@@ -36,7 +36,7 @@ const Testimonital = () => {
       style={{ maxWidth: 180 }}
       value={review.rating}
       
-      isRequired
+      isRequired 
     />
                 <p>{review.details}</p>
                 <h3 className="text-2xl text-orange-400">{review.name}</h3>
