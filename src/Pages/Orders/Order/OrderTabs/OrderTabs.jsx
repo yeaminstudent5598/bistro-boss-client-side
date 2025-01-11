@@ -26,7 +26,7 @@ const OrderTabs = ({items}) => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide><div className="grid md:grid-cols-3 gap-20 mb-20">
+        <SwiperSlide><div className="grid md:grid-cols-4 gap-3 mb-20">
           
         {
                 items.map(item => <FoodCart

@@ -1,7 +1,14 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../../Provider/AuthProvider';
 
 const Navbar = () => {
+
+  const {user, logOut} = useContext(AuthContext)
+  
+  const handleLogout = () => {
+    
+  }
 
     const navOption = <>
    
@@ -21,6 +28,12 @@ const Navbar = () => {
       <li>
         <NavLink to={'/order/salad'}>ORDER FOOD</NavLink>
       </li>
+
+      
+
+      {
+        user ? <><li><NavLink onClick={handleLogout}> LogOut</NavLink></li></> : <><li><NavLink to={'/login'}> Login/register</NavLink></li></>
+      }
    
     
     </>
@@ -29,7 +42,7 @@ const Navbar = () => {
         <>
 
 
-<div className="navbar fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">
+<div className="navbar  fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -61,7 +74,7 @@ const Navbar = () => {
   
   <div className="navbar-end">
   <div className="hidden lg:flex">
-    <ul className="gap-8 text-sm menu-horizontal px-1">
+    <ul className="gap-5 text-sm menu-horizontal px-1">
      {navOption}
     </ul>
   </div>
@@ -79,6 +92,7 @@ const Navbar = () => {
           d="M5.121 17.804A5.5 5.5 0 0115 13.99m-9.879 3.814L3 21l3.196-2.757M19 5h-7m3-3v7" />
       </svg>
     </button>
+   
   </div>
 </div>
             

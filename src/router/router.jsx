@@ -7,6 +7,8 @@ import Home from "../Component/Home/Home";
 import ErrorPage from "../Component/ErrorPage/ErrorPage";
 import OurMenu from "../Component/OurMenu/OurMenu";
 import Order from "../Pages/Orders/Order/Order";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/register";
 
 
 
@@ -30,7 +32,16 @@ const router = createBrowserRouter([
         {
           path: '/order/:category',
           element: <Order/>,
-        }
+        },
+
+      {
+        path: '/login',
+        element: <Login/>
+      },
+      {
+        path: '/register',
+        element: <Register/>
+      }
       ]
     },
   ]);
