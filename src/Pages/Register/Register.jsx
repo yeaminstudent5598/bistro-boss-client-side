@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Component/Provider/AuthProvider";
 import LoginErrorPage from "../../Component/LoginErrorPage/LoginErrorPage";
 
@@ -14,6 +14,7 @@ const Register = () => {
   } = useForm();
 
   const {createUser, user} = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const onSubmit = (data) => {
     console.log(data); 
@@ -21,6 +22,7 @@ const Register = () => {
     .then(result => {
       const loggedUser = result.user;
       console.log('loogedUser', loggedUser);
+      navigate('/')
     })
   };
  
