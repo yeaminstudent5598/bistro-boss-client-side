@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import {  Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../Provider/AuthProvider';
+import { FaCartShopping } from 'react-icons/fa6';
+import useCart from '../../../../../Hooks/useCart';
 
 const Navbar = () => {
 
-  const {user, logOut} = useContext(AuthContext)
-  const navigate = useNavigate()
+  const {user, logOut} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [cart] = useCart();
   
   const handleLogout = () => {
     logOut()
@@ -23,9 +26,9 @@ const Navbar = () => {
       <li>
         <NavLink to={'/'} className="text-yellow-500 font-semibold">HOME</NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink to={'/contact'}>CONTACT US</NavLink>
-      </li>
+      </li> */}
       <li>
         <NavLink to={'/dashboard'}>DASHBOARD</NavLink>
       </li>
@@ -33,13 +36,25 @@ const Navbar = () => {
         <NavLink to={'/our-menu'}>OUR MENU</NavLink>
       </li>
       <li>
+        <NavLink to={'/secret'}>SECRET</NavLink>
+      </li>
+      <li>
         <NavLink to={'/order/salad'}>ORDER FOOD</NavLink>
       </li>
+      <li>
+      <Link to='/dashboard/cart'><button className="flex items-center">
+      <FaCartShopping className='mr-1' />
+  <div className="badge badge-secondary">+{cart.length}</div>
+</button></Link>
+      </li>
+     
 
       
 
       {
-        user ? <><li><NavLink onClick={handleLogout}> LogOut</NavLink></li></> : <><li><NavLink to={'/login'}> Login/register</NavLink></li></>
+        user ? <>
+        {/* <span>{user?.displayName}</span> */}
+        <li><NavLink onClick={handleLogout}> LogOut</NavLink></li></> : <><li><NavLink to={'/login'}> Login/register</NavLink></li></>
       }
    
     
@@ -49,7 +64,7 @@ const Navbar = () => {
         <>
 
 
-<div className="navbar  fixed z-10 bg-opacity-30 max-w-screen-xl bg-black text-white">
+<div className="navbar  fixed z-10 bg-opacity-30 max-w-screen-xl mx-auto bg-black text-white">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -81,7 +96,7 @@ const Navbar = () => {
   
   <div className="navbar-end">
   <div className="hidden lg:flex">
-    <ul className="gap-5 text-sm menu-horizontal px-1">
+    <ul className="gap-3 items-center text-sm menu-horizontal px-1">
      {navOption}
     </ul>
   </div>

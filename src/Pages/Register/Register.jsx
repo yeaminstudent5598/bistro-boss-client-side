@@ -4,16 +4,20 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Component/Provider/AuthProvider";
 import LoginErrorPage from "../../Component/LoginErrorPage/LoginErrorPage";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../Social/SocialLogin";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
    
     formState: { errors },
   } = useForm();
+  const axiosPublic = useAxiosPublic();
 
-  const {createUser, user} = useContext(AuthContext)
+  const {createUser, user, updateUserProfile} = useContext(AuthContext)
   const navigate = useNavigate()
 
   const onSubmit = (data) => {
@@ -22,7 +26,28 @@ const Register = () => {
     .then(result => {
       const loggedUser = result.user;
       console.log('loogedUser', loggedUser);
+      updateUserProfile(data.name, data.photoURL)
+
+      .then(() => {
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+  
+        }
+      axiosPublic.post('/users', userInfo)
+      .then(res  => {
+        if(res.data.insertedId) {
+          console.log('user profile is added to database');
+          reset();
+          
+
+        }
+
+      })
       navigate('/')
+        
+      })
+      
     })
   };
  
@@ -63,6 +88,18 @@ const Register = () => {
                 />
                 {errors.name && (
                   <span className="text-red-600">Name is required</span>
+                )}
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  {...register("Photo URL", { required: true })}
+                  type="text"
+                  placeholder="Photo URL"
+                  className="input input-bordered"
+                />
+                {errors.name && (
+                  <span className="text-red-600">Photo URL is required</span>
                 )}
               </div>
               <div className="form-control">
@@ -121,9 +158,11 @@ const Register = () => {
                 />
               </div>
             </form>
-            <div className="text-center mb-10">
+            <div className="text-center">
                 <p>you have already account?<Link className="text-blue-700" to={'/login'}>Login now</Link> </p>
             </div>
+            
+            <SocialLogin/>
           </div>
         </div>
       </div>
