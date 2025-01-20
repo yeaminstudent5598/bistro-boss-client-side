@@ -6,6 +6,7 @@ import { AuthContext } from "../../Component/Provider/AuthProvider";
 import LoginErrorPage from "../../Component/LoginErrorPage/LoginErrorPage";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import SocialLogin from "../Social/SocialLogin";
+import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
   const {
@@ -17,7 +18,7 @@ const Register = () => {
   } = useForm();
   const axiosPublic = useAxiosPublic();
 
-  const {createUser, user, updateUserProfile} = useContext(AuthContext)
+  const {createUser, user, updateUserProfile} =useAuth();
   const navigate = useNavigate()
 
   const onSubmit = (data) => {
